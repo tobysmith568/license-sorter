@@ -1,0 +1,19 @@
+{
+  "name": "licence-sorter",
+  "version": "1.0.0",
+  "description": "Sorts the JSON output from the library licence-checker by the licence",
+  "main": "dist/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobysmith568/Licence-Sorter.git"
+  },
+  "author": "Toby Smith",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tobysmith568/Licence-Sorter/issues"
+  },
+  "homepage": "https://github.com/tobysmith568/Licence-Sorter#readme"
+}
