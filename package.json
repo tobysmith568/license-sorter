@@ -3,9 +3,20 @@
   "version": "1.0.0",
   "description": "Sorts the JSON output from the library licence-checker by the licence",
   "main": "dist/main.js",
+  "bin": {
+    "licence-sorter": "bin/licence-sorter"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
+    "build": "trash dist&&tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "cli",
+    "licence-sorter"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tobysmith568/Licence-Sorter.git"
@@ -15,5 +26,18 @@
   "bugs": {
     "url": "https://github.com/tobysmith568/Licence-Sorter/issues"
   },
-  "homepage": "https://github.com/tobysmith568/Licence-Sorter#readme"
+  "homepage": "https://github.com/tobysmith568/Licence-Sorter#readme",
+  "devDependencies": {
+    "@types/inquirer": "^6.5.0",
+    "@types/node": "^13.11.0",
+    "esm": "^3.2.25",
+    "trash": "^6.1.1",
+    "tsc": "^1.20150623.0",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "arg": "^4.1.3",
+    "inquirer": "^7.1.0",
+    "promisify": "0.0.3"
+  }
 }
