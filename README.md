@@ -1,4 +1,4 @@
-# Licence-Sorter
+# Licence-Sorter [![Build Status](https://dev.azure.com/tobysmith568/License-Sorter/_apis/build/status/tobysmith568.License-Sorter?branchName=master)](https://dev.azure.com/tobysmith568/License-Sorter/_build/latest?definitionId=14&branchName=master)
 
 This CLI takes a JSON file outputted from the NPM library [license-checker](https://www.npmjs.com/package/license-checker) and sorts it so that the results are grouped by their licenses.
 <br />
