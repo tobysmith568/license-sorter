@@ -10,7 +10,9 @@
     "access": "public"
   },
   "scripts": {
-    "build": "trash dist&&tsc",
+    "clean": "trash dist",
+    "build": "npm run clean&&npm run build:pipeline",
+    "build:pipeline": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "npm run build",
     "deploy": "npm publish",
