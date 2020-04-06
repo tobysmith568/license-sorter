@@ -1,4 +1,4 @@
 export interface IResult {
-  licence: string;
+  license: string;
   packages: string[];
 }

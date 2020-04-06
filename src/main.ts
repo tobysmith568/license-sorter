@@ -11,12 +11,12 @@ export async function convertFile(inputFile: string, outputFile: string): Promis
 
 		const licenses: string[] = Array.isArray((value as any).licenses) ? (value as any).licenses : [ (value as any).licenses ];
 
-		for (const licence of licenses) {
-			if (!results.has(licence)) {
-				results.set(licence, []);
+		for (const license of licenses) {
+			if (!results.has(license)) {
+				results.set(license, []);
 			}
 
-			results.get(licence)?.push(key);
+			results.get(license)?.push(key);
 		}
 	}
 
@@ -24,7 +24,7 @@ export async function convertFile(inputFile: string, outputFile: string): Promis
 
 	for (const key of Array.from(results.keys())) {
 		const resultItem: IResult = {
-      licence: key,
+      license: key,
       packages: results.get(key) || []
     };
 

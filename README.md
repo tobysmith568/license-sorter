@@ -1,1 +1,1 @@
-Licence-Sorter
+license-Sorter

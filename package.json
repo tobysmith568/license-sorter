@@ -1,42 +1,53 @@
 {
-  "name": "licence-sorter",
-  "version": "1.0.0",
-  "description": "Sorts the JSON output from the library licence-checker by the licence",
+  "name": "license-sorter",
+  "version": "1.0.4",
+  "description": "Sorts the JSON output from the library license-checker by the license type",
   "main": "dist/main.js",
   "bin": {
-    "licence-sorter": "bin/licence-sorter"
+    "license-sorter": "bin/license-sorter"
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
     "build": "trash dist&&tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "npm run build",
+    "deploy": "npm publish",
+    "nvm": "nvm use 13.2.0"
   },
+  "files": [
+    "dist",
+    "bin"
+  ],
   "keywords": [
     "cli",
-    "licence-sorter"
+    "license",
+    "licence",
+    "checker",
+    "sorter",
+    "oss"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tobysmith568/Licence-Sorter.git"
+    "url": "git+https://github.com/tobysmith568/license-Sorter.git"
   },
   "author": "Toby Smith",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tobysmith568/Licence-Sorter/issues"
+    "url": "https://github.com/tobysmith568/license-Sorter/issues"
   },
-  "homepage": "https://github.com/tobysmith568/Licence-Sorter#readme",
+  "homepage": "https://github.com/tobysmith568/license-Sorter#readme",
   "devDependencies": {
     "@types/inquirer": "^6.5.0",
     "@types/node": "^13.11.0",
-    "esm": "^3.2.25",
     "trash": "^6.1.1",
     "tsc": "^1.20150623.0",
     "typescript": "^3.8.3"
   },
   "dependencies": {
     "arg": "^4.1.3",
+    "esm": "^3.2.25",
     "inquirer": "^7.1.0",
     "promisify": "0.0.3"
   }
