@@ -2,7 +2,8 @@ import arg from "arg";
 import { validArguments } from "./valid-arguments";
 import { IArguments } from "./arguments.interface";
 import inquirer, { Question, Answers } from "inquirer";
-import { doesFileExist } from "./file.utils";
+import { doesFileExist } from "../utils/file.utils";
+import { convertFile } from "../main";
 
 function parseArgumentsIntoOptions(rawArgs: string[]): IArguments {
  const args: arg.Result<any> = arg(validArguments, {
@@ -65,9 +66,14 @@ export async function cli(args: string[]): Promise<void> {
   options = await promptForAnswers(options);
 
   if (options.overwriteOutput === false) {
-    console.log("\x1b[31m", "Exiting the application to avoid overwriting the existing output file!", "\x1b[0m");
+    console.error("\x1b[31m", "Exiting the application to avoid overwriting the existing output file!", "\x1b[0m");
     process.exit(1);
   }
 
-  console.log(options);
+  try {
+    await convertFile(options.input, options.output);
+  } catch (e) {
+    console.error("\x1b[31m", "Unexpected Failure!", "\x1b[0m", e);
+    process.exit(1);
+  }
 }
