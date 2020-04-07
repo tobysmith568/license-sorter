@@ -1,6 +1,6 @@
 {
   "name": "license-sorter",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "CLI which sorts the JSON output from the library license-checker by the license type",
   "main": "dist/main.js",
   "bin": {
