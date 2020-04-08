@@ -1,9 +1,10 @@
 import arg from "arg";
 import { validArguments } from "./valid-arguments";
 import { IArguments } from "./arguments.interface";
-import inquirer, { Question, Answers } from "inquirer";
 import { doesFileExist } from "../utils/file.utils";
 import { convertFile } from "../main";
+import { prompt } from "enquirer";
+import * as os from "os";
 
 function parseArgumentsIntoOptions(rawArgs: string[]): IArguments {
  const args: arg.Result<any> = arg(validArguments, {
@@ -18,47 +19,42 @@ function parseArgumentsIntoOptions(rawArgs: string[]): IArguments {
 }
 
 async function promptForAnswers(options: IArguments): Promise<IArguments> {
-  const questions: Question[] = [];
 
-  if (!options.input) {
-    questions.push({
+  let inputMessage: string = "Please give the location of the input JSON file:";
+  while (!options.input || !await doesFileExist(options.input)) {
+    const answer: any = await prompt({
       type: "input",
       name: "input",
-      message: "Please give the location of the input JSON file:",
-      validate: async (input: any, answers?: Answers | undefined): Promise<string | boolean> => {
-        return (await doesFileExist(input)) ? true : "That is not a valid file";
-      }
+      initial: "",
+      message: inputMessage
     });
+
+    options.input = answer.input;
+    inputMessage = "That file does not exist!" + os.EOL + "Please give the location of the input JSON file:";
   }
 
-  if (!options.output) {
-    questions.push({
+  while (!options.output || options.overwriteOutput === false) {
+    const answer: any = await prompt({
       type: "input",
       name: "output",
-      message: "Please give the location of the output JSON file:",
-      validate: (input: any, answers?: Answers | undefined): string | boolean => {
-        return ("" + input).length !== 0 ? true : "You need to enter an output file location";
-      }
+      initial: "",
+      message: "Please give the location of the output JSON file:"
     });
+
+    options.output = answer.output;
+
+    if (await doesFileExist(options.output)) {
+      const yesNoAnswer: any = await prompt({
+        type: "confirm",
+        name: "overwriteOutput",
+        message: "The given output file already exists and will be overwritten. Is this OK?"
+      });
+
+      options.overwriteOutput = yesNoAnswer.overwriteOutput;
+    }
   }
 
-  questions.push({
-    type: "confirm",
-    name: "overwriteOutput",
-    message: "The given output file already exists and will be overwritten. Is this OK?",
-    when: async (answers: Answers): Promise<boolean> => {
-      return await doesFileExist(answers.output);
-    }
-  });
-
-  const results: any = await inquirer.prompt(questions);
-
-  return {
-    ...options,
-    input: options.input || results.input,
-    output: options.output || results.output,
-    overwriteOutput: options.overwriteOutput || results.overwriteOutput,
-  };
+  return options;
 }
 
 export async function cli(args: string[]): Promise<void> {
