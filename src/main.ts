@@ -1,11 +1,28 @@
 import { readFileAsync, writeFileAsync } from "./utils/file.utils";
 import { IResult } from "./models/result.interface";
+import { InitOpts, ModuleInfos, init } from "license-checker";
+import { promisify } from "util";
+
+const initAsync: (options: InitOpts) => Promise<ModuleInfos> = promisify(init);
+
+export async function convertPackageJSON(packageJSONLocation: string, outputFile: string): Promise<void> {
+  const file: ModuleInfos = await initAsync({
+    start: packageJSONLocation
+	});
+
+	await convert(file, outputFile);
+}
 
 export async function convertFile(inputFile: string, outputFile: string): Promise<void> {
-	const results: Map<string, string[]> = new Map<string, string[]>();
 
   const inputData: string = await readFileAsync(inputFile, { encoding: "utf-8" });
   const dependencies: any = JSON.parse(inputData);
+
+	await convert(dependencies, outputFile);
+}
+
+async function convert(dependencies: any, outputFile: string): Promise<void> {
+	const results: Map<string, string[]> = new Map<string, string[]>();
 
 	for (const [key, value] of Object.entries(dependencies)) {
 
