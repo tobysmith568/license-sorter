@@ -17,6 +17,8 @@ $ license-sorter --input licenses.json --output licenses-sorted.json
 
 If either flag is omitted the CLI will prompt you for the inputs.
 
+If you don't supply an input file, and the CLI is able to detect a package.json file, the it will allow you to run the command using dependencies it detects in the local project.
+
 ## Installation and Usage (Programmatic use)
 ```
 $ npm install license-sorter
